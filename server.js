@@ -77,7 +77,7 @@ const viewAllEmployees = () => {
   });
 };
 
-addEmployee = () => {
+const addEmployee = () => {
   inquirer
     .prompt([
       {
