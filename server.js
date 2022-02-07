@@ -13,45 +13,45 @@ const startApp = () => {
         choices: [
           "View all employees",
           "Add employee",
-          "Update Employee Role",
-          "View all Roles",
+          "Update employee role",
+          "View all roles",
           "Add role",
-          "View all Departments",
+          "View all departments",
           "Add department",
           "Quit",
         ],
       },
     ])
     .then((answer) => {
-      if (answer.taskName === "View All employees") {
+      if (answer.taskName === "View all employees") {
         viewAllEmployees();
       }
 
-      if (answer.taskName === "ADD_EMPLOYEE") {
+      if (answer.taskName === "Add employee") {
         addEmployee();
       }
 
-      if (answer.taskName === "UPDATE_EMPLOYEE_ROLE") {
+      if (answer.taskName === "Update employee role") {
         updateEmployeeRole();
       }
 
-      if (answer.taskName === "VIEW_ALL_ROLES") {
+      if (answer.taskName === "View all roles") {
         viewAllRoles();
       }
 
-      if (answer.taskName === "ADD_ROLE") {
+      if (answer.taskName === "Add role") {
         addRole();
       }
 
-      if (answer.taskName === "VIEW_ALL_DEPARTMENTS") {
+      if (answer.taskName === "View all departments") {
         viewAllDepartments();
       }
 
-      if (answer.taskName === "ADD_DEPARTMENT") {
+      if (answer.taskName === "Add department") {
         addDepartment();
       }
 
-      if (answer.taskName === "QUIT") {
+      if (answer.taskName === "Quit") {
         viewAllEmployees();
       }
     });
@@ -61,13 +61,13 @@ const viewAllEmployees = () => {
   const sql = `SELECT employee.id, 
                 employee.first_name, 
                 employee.last_name, 
-                role.title, 
+                roles.title, 
                 department.name AS department, 
-                role.salary, 
+                roles.salary, 
                 CONCAT (manager.first_name, " ", manager.last_name) AS manager
                 FROM employee
-                LEFT JOIN role ON employee.role_id = role.id
-                LEFT JOIN department ON role.department_id = department.id
+                LEFT JOIN roles ON employee.roles_id = roles.id
+                LEFT JOIN department ON roles.department_id = department.id
                 LEFT JOIN employee manager ON employee.manager_id = manager.id`;
 
   connection.query(sql, (err, rows) => {
@@ -132,6 +132,45 @@ const addEmployee = () => {
     ])
     .then((answer) => {
       const sql = `INSERT INTO employee (employee.id, employee.first_name, employee.last_name, employee.role) VALUES (?, ?, ?, ?)`;
+    });
+};
+
+const viewAllRoles = () => {
+  const sql = "SELECT * FROM roles";
+  connection.query(sql, (err, res) => {
+    if (err) throw err;
+    console.table("List of all currrent roles: ", res);
+    startApp();
+  });
+};
+
+const viewAllDepartments = () => {
+  const sql = "SELECT * FROM department";
+  connection.query(sql, (err, res) => {
+    if (err) throw err;
+    console.table("List of all departments:", res);
+    startApp();
+  });
+};
+
+const addDepartment = () => {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "departmentName",
+        message: "What is the name of the department?",
+      },
+    ])
+    .then((answer) => {
+      const sql = `INSERT INTO department (name)
+                  VALUES (?)`;
+      connection.query(sql, answer.dpartmentName, (err, res) => {
+        if (err) throw err;
+        console.log("New department added: ", res);
+        viewAllDepartments();
+        startApp();
+      });
     });
 };
 
