@@ -23,7 +23,7 @@ const startApp = () => {
       },
     ])
     .then((answer) => {
-      if (answer.taskName === "VIEW_ALL_EMPLOYEES") {
+      if (answer.taskName === "View All employees") {
         viewAllEmployees();
       }
 
