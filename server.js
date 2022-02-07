@@ -23,35 +23,35 @@ const startApp = () => {
       },
     ])
     .then((answer) => {
-      if (answer === "VIEW_ALL_EMPLOYEES") {
+      if (answer.taskName === "VIEW_ALL_EMPLOYEES") {
         viewAllEmployees();
       }
 
-      if (answer === "ADD_EMPLOYEE") {
+      if (answer.taskName === "ADD_EMPLOYEE") {
         addEmployee();
       }
 
-      if (answer === "UPDATE_EMPLOYEE_ROLE") {
+      if (answer.taskName === "UPDATE_EMPLOYEE_ROLE") {
         updateEmployeeRole();
       }
 
-      if (answer === "VIEW_ALL_ROLES") {
+      if (answer.taskName === "VIEW_ALL_ROLES") {
         viewAllRoles();
       }
 
-      if (answer === "ADD_ROLE") {
+      if (answer.taskName === "ADD_ROLE") {
         addRole();
       }
 
-      if (answer === "VIEW_ALL_DEPARTMENTS") {
+      if (answer.taskName === "VIEW_ALL_DEPARTMENTS") {
         viewAllDepartments();
       }
 
-      if (answer === "ADD_DEPARTMENT") {
+      if (answer.taskName === "ADD_DEPARTMENT") {
         addDepartment();
       }
 
-      if (answer === "QUIT") {
+      if (answer.taskName === "QUIT") {
         viewAllEmployees();
       }
     });
