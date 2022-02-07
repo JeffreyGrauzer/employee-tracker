@@ -57,7 +57,7 @@ const startApp = () => {
     });
 };
 
-viewAllEmployees = () => {
+const viewAllEmployees = () => {
   const sql = `SELECT employee.id, 
                 employee.first_name, 
                 employee.last_name, 
